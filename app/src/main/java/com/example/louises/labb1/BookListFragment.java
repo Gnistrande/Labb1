@@ -3,9 +3,14 @@ package com.example.louises.labb1;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.view.ActionMode.Callback;
 
 
 import com.example.louises.labb1.dummy.DummyContent;
@@ -77,6 +82,10 @@ public class BookListFragment extends ListFragment {
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 DummyContent.ITEMS));
+
+        ///// BÖRJA HÄR, typ nära att få det att fungera
+        ActionMode randomActionMode = getActivity().startActionMode(mActionModeCallback);
+
     }
 
     @Override
@@ -110,6 +119,50 @@ public class BookListFragment extends ListFragment {
         mCallbacks = sDummyCallbacks;
     }
 
+    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+
+        // Called when the action mode is created; startActionMode() was called
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            // Inflate a menu resource providing context menu items
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.item_detail_menu, menu);
+            return true;
+        }
+
+        // Called each time the action mode is shown. Always called after onCreateActionMode, but
+        // may be called multiple times if the mode is invalidated.
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false; // Return false if nothing is done
+        }
+
+        // Called when the user selects a contextual menu item
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+/*
+            switch (item.getItemId()) {
+                case R.id.menu_share:
+                    shareCurrentItem();
+                    mode.finish(); // Action picked, so close the CAB
+                    return true;
+                default:
+                    return false;
+
+            }
+*/
+            return false;
+        }
+
+        // Called when the user exits the action mode
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            /*
+            mActionMode = null;
+            */
+        }
+    };
+
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
@@ -117,7 +170,10 @@ public class BookListFragment extends ListFragment {
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
         mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+
     }
+
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

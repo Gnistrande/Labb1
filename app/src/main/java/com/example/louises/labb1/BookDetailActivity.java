@@ -4,7 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.NavUtils;
+import android.view.ActionMode;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Menu;
+import android.view.View;
+import android.view.ActionMode.Callback;
 
 
 /**
@@ -65,4 +71,12 @@ public class BookDetailActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.item_detail_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
 }
