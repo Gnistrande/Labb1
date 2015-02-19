@@ -3,6 +3,7 @@ package com.example.louises.labb1;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 
 
 /**
@@ -21,7 +22,7 @@ import android.support.v4.app.FragmentActivity;
  * {@link BookListFragment.Callbacks} interface
  * to listen for item selections.
  */
-public class BookListActivity extends FragmentActivity
+public class BookListActivity extends ActionBarActivity
         implements BookListFragment.Callbacks {
 
     /**
