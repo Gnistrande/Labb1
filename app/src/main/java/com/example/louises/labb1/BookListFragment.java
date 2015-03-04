@@ -12,8 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.view.ActionMode.Callback;
 
-
+import com.example.louises.labb1.dummy.Datasource;
 import com.example.louises.labb1.dummy.DummyContent;
+import com.example.louises.labb1.dummy.Item;
 
 /**
  * A list fragment representing a list of Books. This fragment
@@ -25,6 +26,8 @@ import com.example.louises.labb1.dummy.DummyContent;
  * interface.
  */
 public class BookListFragment extends ListFragment {
+
+    private Datasource datasource;
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -72,18 +75,22 @@ public class BookListFragment extends ListFragment {
     public BookListFragment() {
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+        setListAdapter(new ArrayAdapter<Item>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                DummyContent.ITEMS));
+                datasource.fetchAll(2, true)
+        ));
 
         ///// BÖRJA HÄR, typ nära att få det att fungera
+        //en ny kommentar
         ActionMode randomActionMode = getActivity().startActionMode(mActionModeCallback);
 
     }
@@ -157,9 +164,9 @@ public class BookListFragment extends ListFragment {
         // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            /*
-            mActionMode = null;
-            */
+
+            mode = null;
+
         }
     };
 
@@ -170,9 +177,9 @@ public class BookListFragment extends ListFragment {
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
         mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        view.setSelected(true);
 
     }
-
 
 
     @Override
@@ -206,3 +213,6 @@ public class BookListFragment extends ListFragment {
         mActivatedPosition = position;
     }
 }
+
+
+

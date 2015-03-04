@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import com.example.louises.labb1.dummy.DummyContent;
+//import com.example.louises.labb1.dummy.DummyContent;
+import com.example.louises.labb1.dummy.Datasource;
+import com.example.louises.labb1.dummy.Item;
 
 /**
  * A fragment representing a single Book detail screen.
@@ -30,7 +32,8 @@ public class BookDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    //private DummyContent.DummyItem mItem;
+    private Item mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -47,6 +50,13 @@ public class BookDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
+
+
+            // BÖRJA HÄÄÄÄÄÄÄR
+
+            //mItem = Datasource.arrayList.get(getArguments().getString(ARG_ITEM_ID));
+
+
             mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
     }
