@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
+
+import com.example.louises.labb1.dummy.Item;
+
+import java.io.Serializable;
 
 
 /**
@@ -31,6 +36,7 @@ public class BookListActivity extends ActionBarActivity
      * device.
      */
     private boolean mTwoPane;
+    private Item mItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +65,16 @@ public class BookListActivity extends ActionBarActivity
      * indicating that the item with the given ID was selected.
      */
     @Override
-    public void onItemSelected(String id) {
+    public void onItemSelected(String id, Item mItem) {
+
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(BookDetailFragment.ARG_ITEM_ID, id);
+            //Add stuff in bundle. Här kan vi lägga in fler. Denna är serialiserbar
+            arguments.putSerializable("Item", (Serializable) mItem);
+            //arguments.putString(BookDetailFragment.ARG_ITEM_ID, id);
             BookDetailFragment fragment = new BookDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -79,6 +88,8 @@ public class BookListActivity extends ActionBarActivity
             detailIntent.putExtra(BookDetailFragment.ARG_ITEM_ID, id);
             startActivity(detailIntent);
         }
+
+        //setArgument() ska användas
     }
 
     @Override
@@ -86,5 +97,6 @@ public class BookListActivity extends ActionBarActivity
         getMenuInflater().inflate(R.menu.option_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 
 }

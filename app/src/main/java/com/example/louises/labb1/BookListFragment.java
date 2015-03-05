@@ -29,6 +29,7 @@ public class BookListFragment extends ListFragment {
 
     private Datasource datasource;
     private ArrayAdapter<Item> adapter;
+    private ActionMode mActionMode;
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -56,7 +57,7 @@ public class BookListFragment extends ListFragment {
         /**
          * Callback for when an item has been selected.
          */
-        public void onItemSelected(String id);
+        public void onItemSelected(String id, Item mItem);
     }
 
     /**
@@ -65,7 +66,7 @@ public class BookListFragment extends ListFragment {
      */
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
-        public void onItemSelected(String id) {
+        public void onItemSelected(String id, Item mItem) {
         }
     };
 
@@ -81,6 +82,12 @@ public class BookListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //För att kunna skapa en optionsmenu och kunna lyssna på våra items
+        setHasOptionsMenu(true);
+
+        //hämtar ifrån databasen
+        datasource = new Datasource(getActivity());
+
         datasource.open();
 
         // TODO: replace with a real list adapter.
@@ -93,10 +100,7 @@ public class BookListFragment extends ListFragment {
 
         setListAdapter(adapter);
 
-        ///// BÖRJA HÄR, typ nära att få det att fungera
-        //en ny kommentar
         ActionMode randomActionMode = getActivity().startActionMode(mActionModeCallback);
-
     }
 
     @Override
@@ -176,23 +180,18 @@ public class BookListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        //super.onListItemClick(listView, view, position, id);
+        super.onListItemClick(listView, view, position, id);
 
-        //to access the data associated with the selected item
+        if(mActionMode == null) {
+            mActionMode = getActivity().startActionMode(mActionModeCallback);
+        }
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
 
-        mCallbacks.onItemSelected(adapter.getItem(position).getId() + "");      //
-        //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
-
-        //
-        //mItem = getArguments().getString(ARG_ITEM_ID);
-        //mItem = datasource.fetchAll(2, true).get(getArguments().getInt(ARG_ITEM_ID));
-        //mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+        mCallbacks.onItemSelected(adapter.getItem(position).getId() + "", adapter.getItem(position));      //
 
         view.setSelected(true);
-
     }
 
 
@@ -225,6 +224,28 @@ public class BookListFragment extends ListFragment {
         }
 
         mActivatedPosition = position;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.item1:
+                //Om vi vill göra detta i en Activity, behöver vi nedanstående rad + kalla på denna som en funktion
+                //BookListFragment bf = (BookListFragment) getSupportFragmentManager().findFragmentById(R.id.book_detail);
+
+                datasource.insertItem("New Item", 5,  "Description");
+                adapter.clear();
+                adapter.addAll(datasource.fetchAll(2, true));
+
+                adapter.notifyDataSetChanged();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
 
