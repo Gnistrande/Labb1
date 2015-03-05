@@ -28,6 +28,7 @@ import com.example.louises.labb1.dummy.Item;
 public class BookListFragment extends ListFragment {
 
     private Datasource datasource;
+    private ArrayAdapter<Item> adapter;
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -80,14 +81,17 @@ public class BookListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        datasource.open();
 
         // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<Item>(
+        adapter = new ArrayAdapter<Item>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 datasource.fetchAll(2, true)
-        ));
+        );
+
+        setListAdapter(adapter);
 
         ///// BÖRJA HÄR, typ nära att få det att fungera
         //en ny kommentar
@@ -172,11 +176,21 @@ public class BookListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        super.onListItemClick(listView, view, position, id);
+        //super.onListItemClick(listView, view, position, id);
+
+        //to access the data associated with the selected item
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+
+        mCallbacks.onItemSelected(adapter.getItem(position).getId() + "");      //
+        //mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+
+        //
+        //mItem = getArguments().getString(ARG_ITEM_ID);
+        //mItem = datasource.fetchAll(2, true).get(getArguments().getInt(ARG_ITEM_ID));
+        //mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+
         view.setSelected(true);
 
     }
