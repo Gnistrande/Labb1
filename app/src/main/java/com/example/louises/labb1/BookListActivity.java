@@ -67,7 +67,7 @@ public class BookListActivity extends ActionBarActivity
     @Override
     public void onItemSelected(String id, Item mItem) {
 
-        if (mTwoPane) {
+        if (mTwoPane) { //om liggande mobil/platta
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
@@ -81,7 +81,7 @@ public class BookListActivity extends ActionBarActivity
                     .replace(R.id.book_detail_container, fragment)
                     .commit();
 
-        } else {
+        } else { //om stående mobil
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, BookDetailActivity.class);

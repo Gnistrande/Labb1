@@ -2,6 +2,7 @@ package com.example.louises.labb1;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import android.util.Log;
 
 //import com.example.louises.labb1.dummy.DummyContent;
 import com.example.louises.labb1.dummy.Datasource;
@@ -33,7 +34,7 @@ public class BookDetailFragment extends Fragment {
      * The dummy content this fragment is presenting.
      */
     //private DummyContent.DummyItem mItem;
-    private String mItem;
+    private Item mItem = new Item();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -51,7 +52,8 @@ public class BookDetailFragment extends Fragment {
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
 
-            mItem = getArguments().getString(ARG_ITEM_ID); //fungerar om mItem är en String
+            // Behöver vi göra något här när vi har Item?
+            //mItem = getArguments().getString(ARG_ITEM_ID); //fungerar om mItem är en String
 
             //mItem = datasource.fetchAll(2, true).get(getArguments().getInt(ARG_ITEM_ID));
             //mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
@@ -63,15 +65,18 @@ public class BookDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_book_detail, container, false);
 
-        Item dumItem = new Item();
+        //String argumentsText = savedInstanceState.toString();
+        //Log.d("*************************************", argumentsText);
+
+        /*Item dumItem = new Item();
         dumItem.setTitle("Nalle Puh");
         dumItem.setRating(5);
-        dumItem.setDescription("Han äter honung");
+        dumItem.setDescription("Han äter honung");*/
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.book_detail)).setText(mItem);
-            ((TextView) rootView.findViewById(R.id.book_detail)).setText(dumItem.getTitle());
+            //((TextView) rootView.findViewById(R.id.book_detail)).setText(argumentsText);
+            //((TextView) rootView.findViewById(R.id.book_detail)).setText(mItem.g());
         }
 
         return rootView;
