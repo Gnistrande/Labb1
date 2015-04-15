@@ -1,6 +1,9 @@
 package com.example.louises.labb1;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.ActionMode;
@@ -15,6 +18,8 @@ import android.view.ActionMode.Callback;
 import com.example.louises.labb1.dummy.Datasource;
 import com.example.louises.labb1.dummy.DummyContent;
 import com.example.louises.labb1.dummy.Item;
+
+import java.util.ArrayList;
 
 /**
  * A list fragment representing a list of Books. This fragment
@@ -253,9 +258,29 @@ public class BookListFragment extends ListFragment {
                 adapter.notifyDataSetChanged();
 
                 return true;
+            case R.id.sorting:
+                Dialog d = onCreateDialog(null);
+                d.show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+        CharSequence[] arrayOfOptions = {"id", "title", "rating"};
+        ArrayList mSelectedItems = new ArrayList();  // Where we track the selected items
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Set the dialog title
+        builder.setTitle("Sorting")
+                .setItems(arrayOfOptions, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // The 'which' argument contains the index position
+                        // of the selected item
+                    }
+                });
+        return builder.create();
     }
 }
 
