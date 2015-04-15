@@ -259,7 +259,7 @@ public class BookListFragment extends ListFragment {
 
                 return true;
             case R.id.sorting:
-                Dialog d = onCreateDialog(null);
+                Dialog d = onCreateDialog();
                 d.show();
                 return true;
             default:
@@ -267,7 +267,7 @@ public class BookListFragment extends ListFragment {
         }
     }
 
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog() {
 
         CharSequence[] arrayOfOptions = {"id", "title", "rating"};
         ArrayList mSelectedItems = new ArrayList();  // Where we track the selected items
