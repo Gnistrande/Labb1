@@ -72,7 +72,7 @@ public class BookListActivity extends ActionBarActivity
         String description = mItem.getDescription();
         int rating = mItem.getRating();
 
-        //Log.d("*************************", "id = " + id + "  titlr = " + title + " description = " + description + " rating = " + rating);
+        Log.d("**************ACTIVITY***********", "id = " + id + "  titlr = " + title + " description = " + description + " rating = " + rating);
 
         if (mTwoPane) { //om liggande mobil/platta
             // In two-pane mode, show the detail view in this activity by

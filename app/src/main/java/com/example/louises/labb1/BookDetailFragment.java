@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.util.Log;
 
@@ -84,24 +85,20 @@ public class BookDetailFragment extends Fragment {
         dumItem.setRating(5);
         dumItem.setDescription("Han äter honung");*/
 
-        Log.d("*************************", "id = " + mItemID + "  titlr = " + mItemTitle + " description = " + mItemDesc + " rating = " + mItemRating);
+        Log.d("*************FRAGMENT************", "id = " + mItemID + "  title = " + mItemTitle + " description = " + mItemDesc + " rating = " + mItemRating);
 
         // Show the dummy content as text in a TextView.
-        /*if (mItemID != null) {
-            ((TextView) rootView.findViewById(R.id.book_detail)).setText(mItemID);
-            //((TextView) rootView.findViewById(R.id.book_detail)).setText(mItem.g());
+        if (mItemID != null) {
+            ((TextView) rootView.findViewById(R.id.textViewId)).setText(mItemTitle);
         }
         if (mItemTitle != null) {
-            ((TextView) rootView.findViewById(R.id.book_detail)).setText(mItemTitle);
-            //((TextView) rootView.findViewById(R.id.book_detail)).setText(mItem.g());
+            ((TextView) rootView.findViewById(R.id.title)).setText(mItemTitle);
         }
         if (mItemDesc != null) {
-            ((TextView) rootView.findViewById(R.id.book_detail)).setText(mItemDesc);
-            //((TextView) rootView.findViewById(R.id.book_detail)).setText(mItem.g());
-        }*/
+            ((TextView) rootView.findViewById(R.id.desc)).setText(mItemDesc);
+        }
         if (mItemRating != 0) {
-            ((TextView) rootView.findViewById(R.id.book_detail)).setText(String.valueOf(mItemRating));
-            //((TextView) rootView.findViewById(R.id.book_detail)).setText(mItem.g());
+            ((RatingBar) rootView.findViewById(R.id.ratingBar)).setRating(mItemRating);
         }
 
         return rootView;
