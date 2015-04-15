@@ -29,12 +29,20 @@ public class BookDetailFragment extends Fragment {
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
+    public static final String ARG_ITEM_TITLE = "item_title";
+    public static final String ARG_ITEM_DESCRIPTION = "item_description";
+    public static final String ARG_ITEM_RATING = "item_rating";
+
+
 
     /**
      * The dummy content this fragment is presenting.
      */
     //private DummyContent.DummyItem mItem;
-    private Item mItem = new Item();
+    private String mItemID = new String();
+    private String mItemTitle = new String();
+    private String mItemDesc = new String();
+    private int mItemRating;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -53,7 +61,10 @@ public class BookDetailFragment extends Fragment {
             // to load content from a content provider.
 
             // Behöver vi göra något här när vi har Item?
-            //mItem = getArguments().getString(ARG_ITEM_ID); //fungerar om mItem är en String
+            mItemID = getArguments().getString(ARG_ITEM_ID);
+            mItemTitle = getArguments().getString(ARG_ITEM_TITLE);
+            mItemDesc = getArguments().getString(ARG_ITEM_DESCRIPTION);
+            mItemRating = getArguments().getInt(ARG_ITEM_RATING);
 
             //mItem = datasource.fetchAll(2, true).get(getArguments().getInt(ARG_ITEM_ID));
             //mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
@@ -73,9 +84,23 @@ public class BookDetailFragment extends Fragment {
         dumItem.setRating(5);
         dumItem.setDescription("Han äter honung");*/
 
+        Log.d("*************************", "id = " + mItemID + "  titlr = " + mItemTitle + " description = " + mItemDesc + " rating = " + mItemRating);
+
         // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            //((TextView) rootView.findViewById(R.id.book_detail)).setText(argumentsText);
+        /*if (mItemID != null) {
+            ((TextView) rootView.findViewById(R.id.book_detail)).setText(mItemID);
+            //((TextView) rootView.findViewById(R.id.book_detail)).setText(mItem.g());
+        }
+        if (mItemTitle != null) {
+            ((TextView) rootView.findViewById(R.id.book_detail)).setText(mItemTitle);
+            //((TextView) rootView.findViewById(R.id.book_detail)).setText(mItem.g());
+        }
+        if (mItemDesc != null) {
+            ((TextView) rootView.findViewById(R.id.book_detail)).setText(mItemDesc);
+            //((TextView) rootView.findViewById(R.id.book_detail)).setText(mItem.g());
+        }*/
+        if (mItemRating != 0) {
+            ((TextView) rootView.findViewById(R.id.book_detail)).setText(String.valueOf(mItemRating));
             //((TextView) rootView.findViewById(R.id.book_detail)).setText(mItem.g());
         }
 

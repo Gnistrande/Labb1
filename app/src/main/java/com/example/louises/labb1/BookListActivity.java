@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -67,14 +68,25 @@ public class BookListActivity extends ActionBarActivity
     @Override
     public void onItemSelected(String id, Item mItem) {
 
+        String title = mItem.getTitle();
+        String description = mItem.getDescription();
+        int rating = mItem.getRating();
+
+        //Log.d("*************************", "id = " + id + "  titlr = " + title + " description = " + description + " rating = " + rating);
+
         if (mTwoPane) { //om liggande mobil/platta
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
             //Add stuff in bundle. Här kan vi lägga in fler. Denna är serialiserbar
-            arguments.putSerializable("Item", (Serializable) mItem);
-            //arguments.putString(BookDetailFragment.ARG_ITEM_ID, id);
+            //arguments.putSerializable("Item", (Serializable) mItem);
+            arguments.putString(BookDetailFragment.ARG_ITEM_ID, id);
+            arguments.putString(BookDetailFragment.ARG_ITEM_TITLE, title);
+            arguments.putString(BookDetailFragment.ARG_ITEM_DESCRIPTION, description);
+            arguments.putInt(BookDetailFragment.ARG_ITEM_RATING, rating);
+
+
             BookDetailFragment fragment = new BookDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
