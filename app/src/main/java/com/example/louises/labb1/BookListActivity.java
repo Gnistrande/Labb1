@@ -89,8 +89,13 @@ public class BookListActivity extends ActionBarActivity
 
             BookDetailFragment fragment = new BookDetailFragment();
             fragment.setArguments(arguments);
+
+            getSupportFragmentManager()
+                    .popBackStack();
+
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.book_detail_container, fragment)
+                    .addToBackStack(null)
                     .commit();
 
         } else { //om stående mobil

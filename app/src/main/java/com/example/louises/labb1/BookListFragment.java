@@ -155,25 +155,33 @@ public class BookListFragment extends ListFragment {
         // Called when the user selects a contextual menu item
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-/*
+
             switch (item.getItemId()) {
-                case R.id.menu_share:
-                    shareCurrentItem();
+                case R.id.delete:
+
+                    long temp_id = adapter.getItem(mActivatedPosition).getId();
+                    getActivity().getSupportFragmentManager().popBackStack();
+                    //delete from databasen
+                    datasource.deleteItem(String.valueOf(temp_id));
+                    //Remove from arrayadapter
+                    adapter.remove(adapter.getItem(mActivatedPosition));
+                    setActivatedPosition(-1);
+
+                    //Stack and Pop with FragmentManager
                     mode.finish(); // Action picked, so close the CAB
                     return true;
                 default:
                     return false;
 
             }
-*/
-            return false;
         }
 
         // Called when the user exits the action mode
         @Override
         public void onDestroyActionMode(ActionMode mode) {
 
-            mode = null;
+            mActionMode = null;
+
 
         }
     };
@@ -185,6 +193,8 @@ public class BookListFragment extends ListFragment {
         if(mActionMode == null) {
             mActionMode = getActivity().startActionMode(mActionModeCallback);
         }
+
+        setActivatedPosition(position);
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.

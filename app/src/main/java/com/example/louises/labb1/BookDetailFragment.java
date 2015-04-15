@@ -85,11 +85,11 @@ public class BookDetailFragment extends Fragment {
         dumItem.setRating(5);
         dumItem.setDescription("Han äter honung");*/
 
-        Log.d("*************FRAGMENT************", "id = " + mItemID + "  title = " + mItemTitle + " description = " + mItemDesc + " rating = " + mItemRating);
+        Log.d("*******FRAGMENT********", "id = " + mItemID + "  title = " + mItemTitle + " description = " + mItemDesc + " rating = " + mItemRating);
 
         // Show the dummy content as text in a TextView.
         if (mItemID != null) {
-            ((TextView) rootView.findViewById(R.id.textViewId)).setText(mItemTitle);
+            ((TextView) rootView.findViewById(R.id.textViewId)).setText(mItemID);
         }
         if (mItemTitle != null) {
             ((TextView) rootView.findViewById(R.id.title)).setText(mItemTitle);
