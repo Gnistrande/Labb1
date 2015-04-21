@@ -3,6 +3,7 @@ package com.example.louises.labb1;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -271,6 +272,9 @@ public class BookListFragment extends ListFragment {
     public Dialog onCreateDialog() {
         int chosenOption = -1;
 
+        int which = getActivity().getPreferences(0).getInt("choice", 0);
+        Log.d("******* ", "Which: " + which);
+
         CharSequence[] arrayOfOptions = {"id", "title", "rating"};
         ArrayList mSelectedItems = new ArrayList();  // Where we track the selected items
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -280,7 +284,9 @@ public class BookListFragment extends ListFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         //chosenOption = which;
                         //Only using chosenOption because setSingle... wanted another argument... ^^ TODO
-                        Log.d("******* ", "int which = " + which);
+                        //Log.d("******* ", "int which = " + which);
+                        getActivity().getPreferences(0).edit().putInt("choice", which).commit(); //MODE_PRIVATE
+
                         // The 'which' argument contains the index position
                         // of the selected item
                     }
