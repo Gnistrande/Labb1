@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -268,18 +269,23 @@ public class BookListFragment extends ListFragment {
     }
 
     public Dialog onCreateDialog() {
+        int chosenOption = -1;
 
         CharSequence[] arrayOfOptions = {"id", "title", "rating"};
         ArrayList mSelectedItems = new ArrayList();  // Where we track the selected items
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Set the dialog title
         builder.setTitle("Sorting")
-                .setItems(arrayOfOptions, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(arrayOfOptions, chosenOption, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        //chosenOption = which;
+                        //Only using chosenOption because setSingle... wanted another argument... ^^ TODO
+                        Log.d("******* ", "int which = " + which);
                         // The 'which' argument contains the index position
                         // of the selected item
                     }
                 });
+
         return builder.create();
     }
 }
