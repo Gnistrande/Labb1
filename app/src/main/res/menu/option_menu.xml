@@ -11,7 +11,7 @@
         android:title="Help"/>
     <item android:id="@+id/sorting"
         android:title="Sorting"/>
-    <item android:id="@+id/item4"
+    <item android:id="@+id/ascending"
         android:title="Ascending Order"
         android:checkable="true"
         android:checked="true"/>

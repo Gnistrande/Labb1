@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.view.ActionMode.Callback;
 
@@ -264,14 +265,27 @@ public class BookListFragment extends ListFragment {
                 Dialog d = onCreateDialog();
                 d.show();
                 return true;
+            case R.id.ascending:
+                boolean isC = true;
+
+                //CheckBox checkBox = (CheckBox) getView().findViewById(R.id.ascending);
+                if (item.isChecked()) {
+                    item.setChecked(false);
+                    isC = false;
+                } else {
+                    item.setChecked(true);
+                    isC = true;
+                }
+
+                getActivity().getPreferences(0).edit().putBoolean("ascending", isC).commit(); //MODE_PRIVATE
+
+                Log.d("******* ", "isAscending: " + isC);
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     public Dialog onCreateDialog() {
-        int chosenOption = -1;
-
         int which = getActivity().getPreferences(0).getInt("choice", 0);
         Log.d("******* ", "Which: " + which);
 
@@ -280,7 +294,7 @@ public class BookListFragment extends ListFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Set the dialog title
         builder.setTitle("Sorting")
-                .setSingleChoiceItems(arrayOfOptions, chosenOption, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(arrayOfOptions, which, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         //chosenOption = which;
                         //Only using chosenOption because setSingle... wanted another argument... ^^ TODO
